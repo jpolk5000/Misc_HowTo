@@ -1,0 +1,73 @@
+#!/bin/sh
+
+# ---------------------------------------------------------------
+# Procedure to install Qt/Sip/PyQt
+#
+# This will attempt to install latest versions of these components 
+# which will be mostly likely not compatible with Maya 2011
+#
+# JPolk Mar/2012
+# ---------------------------------------------------------------
+
+export VERSIONER_PYTHON_PREFER_32_BIT=yes
+
+#------------------------------
+# Get Python
+#
+
+cd C:/Python_Qt_Downloads/Python/2.7.2/
+
+curl -C - -LO http://www.python.org/ftp/python/2.7.2/python-2.7.2.msi
+
+# then install manually
+
+
+# -----------------------------
+# get Qt
+
+cd C:/Python_Qt_Downloads/Qt_Download/4.7.1/
+
+curl -C - -LO http://get.qt.nokia.com/qt/source/qt-win-opensource-4.7.1-mingw.exe
+
+# then install manually
+
+
+# -----------------------------
+# get sip
+
+cd C:/sip/
+
+curl -C - -LO http://www.riverbankcomputing.com/static/Downloads/sip4/sip-4.13.2.zip
+
+#tar zxvf sip-4.13.2.tar.gz 
+# unzip
+
+cd sip-4.13 
+
+# from a DOS Command Prompt
+
+C:\Python27\python.exe ./configure.py --platform win32-g++
+make all
+make install
+
+
+# -----------------------------
+# get PyQt
+
+cd C:/Python_Qt_Downloads/PyQt/4.9.1/
+
+curl -C - -LO http://www.riverbankcomputing.co.uk/static/Downloads/PyQt4/PyQt-win-gpl-4.9.1.zip
+
+#tar zxvf PyQt-mac-gpl-4.8.6.tar.gz
+#cd PyQt-mac-gpl-4.8.6
+
+# from DOS Command Prompt
+
+qtvars.bat
+
+C:\Python27\python.exe configure.py 
+make
+sudo make install
+
+
+
