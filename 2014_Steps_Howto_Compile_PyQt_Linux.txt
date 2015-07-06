@@ -1,0 +1,137 @@
+
+# ---------------------------------------------------------------
+# Procedure to install Python/Qt/Sip/PyQt
+#
+# Date: 04-18-2014
+#
+# Rules:
+# They must be installed in this order
+#	Python
+#	Qt
+#	Sip
+#	PyQt
+#	
+# using Tcsh 
+# due to permissions, run as root
+# ---------------------------------------------------------------
+
+mkdir /usr/local/PyQtLx/
+mkdir /usr/local/rush/
+mkdir /usr/local/rush/pyqt/
+
+mkdir /usr/local/PyQtLx/Python
+mkdir /usr/local/PyQtLx/Qt
+mkdir /usr/local/PyQtLx/Sip
+mkdir /usr/local/PyQtLx/PyQt
+
+
+# ---------------------------------------------------------------
+# get Python
+#
+# install doc: http://docs.python.org/release/2.6.6/using/unix.html#building-python
+# ---------------------------------------------------------------
+
+cd /usr/local/PyQtLx/Python/
+
+curl -C - -LO http://www.python.org/ftp/python/2.6.6/Python-2.6.6.tgz
+
+tar zxvf Python-2.6.6.tgz
+
+cd Python-2.6.6.tgz
+
+./configure
+make
+make install
+
+
+# ---------------------------------------------------------------
+# get Qt
+#
+# install doc: http://doc.qt.nokia.com/4.7/install-x11.html
+# ---------------------------------------------------------------
+
+cd /usr/local/PyQtLx/Qt/
+
+curl -C - -LO http://get.qt.nokia.com/qt/source/qt-everywhere-opensource-src-4.7.4.tar.gz
+
+tar zxvf qt-everywhere-opensource-src-4.7.4.tar.gz
+
+cd qt-everywhere-opensource-src-4.7.4
+
+./configure
+make
+make install
+
+
+# ---------------------------------------------------------------
+# get sip
+#
+# install doc: http://www.riverbankcomputing.co.uk/static/Docs/sip4/installation.html
+# ---------------------------------------------------------------
+
+cd /usr/local/PyQtLx/Sip/
+
+curl -C - -LO http://www.riverbankcomputing.co.uk/static/Downloads/sip4/sip-4.13.tar.gz
+
+tar zxvf sip-4.13.tar.gz
+
+cd sip-4.13
+
+/usr/local/lib/python2.6/python configure.py
+make
+make install
+
+
+# ---------------------------------------------------------------
+# get PyQt
+#
+# install doc: http://www.riverbankcomputing.co.uk/static/Docs/PyQt4/html/installation.html
+# ---------------------------------------------------------------
+
+cd /usr/local/PyQtLx/PyQt/
+
+curl -C - -LO http://www.riverbankcomputing.co.uk/static/Downloads/PyQt4/PyQt-x11-gpl-4.8.6.tar.gz
+
+tar zxvf PyQt-x11-gpl-4.8.6.tar.gz
+
+cd PyQt-x11-gpl-4.8.6
+
+/usr/local/lib/python2.6/python configure.py
+make
+make install
+
+
+# ---------------------------------------------------------------
+# Pull together under /usr/local/rush/pyqt
+# ---------------------------------------------------------------
+
+cp -r /usr/local/lib/python2.6 /usr/local/rush/pyqt/
+
+cp /usr/local/lib/libpython2.6.a /usr/local/rush/pyqt/python2.6
+
+mv /usr/local/Trolltech/Qt-4.7.4 /usr/local/rush/pyqt/
+
+rmdir /usr/local/Trolltech
+
+
+
+# ---------------------------------------------------------------
+# Env Vars
+# ---------------------------------------------------------------
+
+setenv PYTHONPATH /usr/local/rush/pyqt/python2.6:/usr/local/rush/pyqt/python2.6/site-packages:/usr/local/rush/pyqt/python2.6/
+lib-dynload
+
+setenv PYTHONHOME /usr/local/rush/pyqt/python2.6
+
+setenv LD_LIBRARY_PATH /usr/local/rush/pyqt/Trolltech/Qt-4.7.4/lib
+
+
+#
+# to Test
+# /usr/local/rush/pyqt/python2.6/python  whatever.py
+
+
+
+
+
